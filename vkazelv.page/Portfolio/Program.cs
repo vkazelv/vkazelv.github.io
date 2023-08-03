@@ -1,7 +1,25 @@
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+var configuration = builder.Configuration;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+#region [DB Connection 연결설정]
+
+#endregion
+
+
+/// <summary>
+/// 외부 인증 관련 ( 참고 : https://learn.microsoft.com/ko-kr/aspnet/core/security/authentication/social/google-logins?view=aspnetcore-7.0)
+/// 공유 인증 cookie s without ASP.NET Core Identity: (https://docs.microsoft.com/ko-kr/aspnet/core/security/cookie-sharing?view=aspnetcore-6.0)
+/// nuget 추가  Microsoft.AspNetCore.Authentication.Google
+/// </summary>
+/*services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+});*/
 
 var app = builder.Build();
 
@@ -12,6 +30,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

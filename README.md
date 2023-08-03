@@ -15,3 +15,9 @@ SQL Database : 데이터베이스 트랜잭션 단위가 10개인 250GB S0 인�
 SQL Server 2019 Developer Edition : 비프로덕션 환경에서 애플리케이션을 빌드하고 테스트 및 시연 
 Virtual Machines - Windows : 750시간 B1S 버스트 가능 가상 머신 12M 
 Azure DevOps : 무제한 프라이빗 Git 리포지토리를 사용하는 5명의 사용자 (MS Hosted CI/CD : 1800 minutes) 
+- Project Settings -> Parallel jobs - Microsoft-hosted Change 
+
+
+# OAuth 2.0
+---
+Google : https://developers.google.com/api-client-library/dotnet/guide/aaa_oauth?hl=ko
