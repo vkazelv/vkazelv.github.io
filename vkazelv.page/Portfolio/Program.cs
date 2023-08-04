@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
@@ -15,11 +17,17 @@ builder.Services.AddControllersWithViews();
 /// 공유 인증 cookie s without ASP.NET Core Identity: (https://docs.microsoft.com/ko-kr/aspnet/core/security/cookie-sharing?view=aspnetcore-6.0)
 /// nuget 추가  Microsoft.AspNetCore.Authentication.Google
 /// </summary>
-/*services.AddAuthentication().AddGoogle(googleOptions =>
+services.AddAuthentication(options =>
 {
-    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
-    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-});*/
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie(options =>
+{
+    options.LoginPath = "/account/google-login";
+}).AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = RureuLib.Configs.GoogleConfig.ClientID;
+    googleOptions.ClientSecret = RureuLib.Configs.GoogleConfig.ClientSecret;
+});
 
 var app = builder.Build();
 
@@ -37,6 +45,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
