@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.IdentityModel.Logging;
 using RureuLib.Configs;
 using RureuLib.OAuth.KakaoTalk;
@@ -31,7 +32,10 @@ services.AddAuthentication(options =>
     // 승인된 리디렉션 URI 등록 
     //options.LoginPath = "/account/google-login";
     options.LoginPath = "/account/login-kakaotalk";
-    options.Cookie.IsEssential = true;
+
+    options.ExpireTimeSpan = TimeSpan.FromDays(1);
+    options.SlidingExpiration = true;
+    options.AccessDeniedPath = "/Forbidden/";
 }).AddGoogle(options =>
 {
     // Google Cloud API서비스 OAuth 2.0 클라이언트 ID 등록 , key 발급 
@@ -64,6 +68,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Lax,
+});
 app.UseAuthentication(); // 인증 활성화 
 app.UseAuthorization(); // 권한부여 활성화 
 

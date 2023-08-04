@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.Google; 
-using RureuLib.OAuth.KakaoTalk;
+using RureuLib.OAuth.KakaoTalk; 
 
 namespace Portfolio.Controllers
 {
@@ -61,7 +61,8 @@ namespace Portfolio.Controllers
         [Route("kakaotalk")]
         public IActionResult KakaoLogin([FromForm] string provider)
         {
-            var properties = new AuthenticationProperties { RedirectUri = Url.Action("KakaoTalkResponse") };
+            ///IsPersistent 쿠키 유지 설정 
+            var properties = new AuthenticationProperties { RedirectUri = Url.Action("KakaoTalkResponse") , IsPersistent = true };
 
             return Challenge(properties, KakaoTalkAuthenticationDefaults.AuthenticationScheme);
         }
