@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@if (Context.User.Identity.IsAuthenticated)
+{
+    <ul>
+        <li>
+            <a>Hello @User.Identity.Name</a>
+        </li>
+        <li>
+            <a asp-controller="Account" asp-action="Logout"> Logout</a>
+        </li>
+    </ul>
+}
+else
+{
+    <ul>
+        <li>
+            <a asp-controller="Account" asp-action="GoogleLogin">google Login</a>
+        </li>
+        <li>
+            <a asp-controller="Account" asp-action="KakaoLogin"><img src="/img/kakao_login_medium_narrow.png" /></a>
+        </li>
+    </ul>
+}
